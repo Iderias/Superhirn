@@ -17,7 +17,6 @@ function CreateCode
             3 {$global:RandomColors = @('r','g','y','b','d','w','m','c')}
         }
         
-        #$RandomColors = @('r','g','y','b','d','w','m','c') # define 8 colors
         $Code = Get-Random -InputObject $RandomColors -count 4 # get 4 random colors from array
         return $Code
                 
@@ -28,7 +27,7 @@ function CreateCode
 function CheckResult($fcode,$feingabe,$fposition,$fformerinput)
     {
         if ($fcode.contains($feingabe)) {$global:result = $global:result +1} # adds 1 point to scoreresult if color is contained in code (corrrect color)
-        if ($fformerinput.contains($feingabe)) {$global:result--} # subtracts 1 point if color was already entered before, as we don't want double colors
+        if ($fformerinput.contains($feingabe)) {$global:result--} # subtracts 1 point if color was already entered before, we don't want double colors
         if ($feingabe -eq $fcode[$fposition]) 
             {
                 $global:result = $global:result + 9 # adds another 9 points to scoreresult as color has correct position (10 points in total)           
@@ -182,7 +181,6 @@ function HallofFame
     }
 
 
-
 ### Main
 
 $global:difficulty = "3"    # defines difficulty from level 1-3 (6-8 possible colors)
@@ -221,7 +219,6 @@ do
                 write-host " Please choose difficulty (1-3): " -NoNewline
                 $In = $host.ui.RawUI.ReadKey()
                 $global:difficulty = $In.Character
-                #$global:difficulty = Read-Host " Please choose difficulty (1-3)"
                 $Host.UI.RawUI.CursorPosition = $pos
             }
         until (($In.Character -eq "1") -or ($In.Character -eq "2") -or ($In.Character -eq "3"))
@@ -277,7 +274,6 @@ do
                     {
 
                         ## Allow only possible colors
-                        #if (($Input.character -eq "r") -or ($Input.character -eq "g") -or ($Input.character -eq "y") -or ($Input.character -eq "b") -or ($Input.character -eq "d") -or ($Input.character -eq "w") -or ($Input.character -eq "m") -or ($Input.character -eq "c"))
                         if ($RandomColors -contains $Input.character)
                             {
                                 $Guess = $Guess+$Input.character
@@ -345,8 +341,7 @@ do
                 $x = $x+6
                 $Host.UI.RawUI.CursorPosition = @{ X = 40; Y = 13}
                 ### write-host "Debug: $global:result  " # use this only for debugging Resultpoints
-                
-                                        
+                                   
                 # End of playerinput
             }
         
@@ -362,7 +357,6 @@ do
 until (($runde -gt 10) -or ($result -gt 30)) # Game ends after 10 rounds or if the code was guessed
 
         $global:playtime = (Get-date)-$starttime # stopping the watch
-
         $global:playtime = "{0:hh\:mm\:ss\.fff}" -f ([TimeSpan] $global:playtime) # reformatting playtime into something we can work with (hh/mm/ss.f)
         $global:cursor = $Host.UI.RawUI.CursorPosition
         ShowCode $Code # calls function 'ShowCode' funhides the secret code
