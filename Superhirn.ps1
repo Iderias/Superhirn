@@ -12,9 +12,9 @@ function CreateCode
     {
         switch ($global:difficulty)
         {
-            1 {$global:RandomColors = @('r','g','y','b','d','w');$global:magentaf = "black";$global:magenta = "black";$global:cyan = "black"}
-            2 {$global:RandomColors = @('r','g','y','b','d','w','m');$global:cyan = "black"}
-            3 {$global:RandomColors = @('r','g','y','b','d','w','m','c')}
+            1 {$global:RandomColors = @('r','g','y','b','d','w');$global:magentaf = "black";$global:magenta = "black";$global:cyan = "black"}          # hide magenta and cyan in difficulty "1"
+            2 {$global:RandomColors = @('r','g','y','b','d','w','m');$global:magentaf = "white";$global:magenta = "magenta";$global:cyan = "black"}    # hide cyan in difficulty "2"
+            3 {$global:RandomColors = @('r','g','y','b','d','w','m','c');$global:magentaf = "white";$global:magenta = "magenta";$global:cyan = "cyan"} # show all 8 colors in difficulty "3"
         }
         
         $Code = Get-Random -InputObject $RandomColors -count 4 # get 4 random colors from array
