@@ -42,7 +42,7 @@ function ShowPins($fresult)
         switch ($fresult)
         {
             0 {$graphic = "· ·";$graphic2 = "· ·"} # 0 Points - no correct color
-            1 {$graphic = "☺ ·";$graphic2 = "· ·"} # 1 Points - 1 correct colors, 0 correct positions
+            1 {$graphic = "☺ ·";$graphic2 = "· ·"} # 1 Point - 1 correct color, 0 correct positions
             2 {$graphic = "☺ ☺";$graphic2 = "· ·"} # 2 Points - 2 correct colors, 0 correct positions
             3 {$graphic = "☺ ☺";$graphic2 = "☺ ·"} # 3 Points - 3 correct colors, 0 correct positions
             4 {$graphic = "☺ ☺";$graphic2 = "☺ ☺"} # 4 Points - 4 correct colors, 0 correct positions
@@ -149,7 +149,7 @@ function HallofFame
 
         $HighScore = Import-Csv -Path $HighScoreFilePath # as we have a highscorefile now, we can import it
         
-        if ($global:playtime -lt $HighScore[9].Time -and $result -gt 30) # if the playtime was better/lower then rank10 in Highscore and the code was also guessed we have new besttime
+        if ($global:playtime -lt $HighScore[9].Time -and $result -gt 30) # if the playtime was better/lower then rank10 in highscore and the code was also guessed we have new besttime
 
                     {
                         $Host.UI.RawUI.CursorPosition = @{ X = 51; Y = 29}
@@ -359,7 +359,7 @@ until (($runde -gt 10) -or ($result -gt 30)) # Game ends after 10 rounds or if t
         $global:playtime = (Get-date)-$starttime # stopping the watch
         $global:playtime = "{0:hh\:mm\:ss\.fff}" -f ([TimeSpan] $global:playtime) # reformatting playtime into something we can work with (hh/mm/ss.f)
         $global:cursor = $Host.UI.RawUI.CursorPosition
-        ShowCode $Code # calls function 'ShowCode' funhides the secret code
+        ShowCode $Code # calls function 'ShowCode' which unhides the secret code
         $Host.UI.RawUI.CursorPosition = $cursor
         write-host ""
         write-host ""
